@@ -1,0 +1,35 @@
+﻿@model Projekt.Net.Models.allaVänner
+
+@{
+    ViewBag.Title = "allaVänner";
+}
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/allaVänner.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+@*Loopar igenom vännerlistan, och skriver sedan ut bild och namn för varje UID som hittas. *@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+            @foreach (var item in Model.VännerListan)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href='@Url.Action("Index", "Profil", new { id = item.UID })'>
+                            <img src='@Url.Content(item.URL)' id="allaVännerBildStorlek"/>
+                        </a>
+                        
+                    </div>
+                    <div class="col-md-4">
+                        @item.FNamn @item.ENamn
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            }
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

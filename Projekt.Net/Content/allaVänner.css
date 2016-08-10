@@ -1,0 +1,12 @@
+﻿body {
+}
+
+.Vännerlistan{
+    border-radius : 10px;
+    background-color : dimgray;
+}
+
+#allaVännerBildStorlek{
+    height : 50px;
+    width : 50px;
+}

@@ -1,0 +1,66 @@
+﻿@model Projekt.Net.Models.Search
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Search.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @*Koden nedan styr hur sökfunktionen skriver ut sökfältet.*@
+    <div class="form-horizontal">
+        <h4>Search</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SökOrd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SökOrd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SökOrd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sök" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@*Om userlistan inte är null, loopar vi då igenom Userlistan 
+    och kollar om användaren är sökbar och är den det så visas denne i sökfältet.*@
+@if (Model.UserListan != null)
+{
+
+    foreach (var item in Model.UserListan)
+    {
+        if(item.Sökbar == 1)
+        {
+            continue;
+        }
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="sökprofil">
+                    <div>
+                        <img src="@Model.URLListan.Where(x => x.UID == item.UserID).FirstOrDefault().URL" alt="..." class="img-rounded" id="bild">
+                        <span id="SpanText">@item.UName</span>
+                        @Html.ActionLink("Gå till profilsida", "Index", "profil", new { id = item.UserID }, new { @class = "btn btn-primary btn-large" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

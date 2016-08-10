@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjektDBModelStoreContainer" CdmEntityContainer="ProjektDBEntities">
+    <EntitySetMapping Name="Användare">
+      <EntityTypeMapping TypeName="ProjektDBModel.Användare">
+        <MappingFragment StoreEntitySet="Användare">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PW" ColumnName="PW" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="ProjektDBModel.Friends">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="FID" ColumnName="FID" />
+          <ScalarProperty Name="UID1" ColumnName="UID1" />
+          <ScalarProperty Name="UID2" ColumnName="UID2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfilInfo">
+      <EntityTypeMapping TypeName="ProjektDBModel.ProfilInfo">
+        <MappingFragment StoreEntitySet="ProfilInfo">
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="FNamn" ColumnName="FNamn" />
+          <ScalarProperty Name="ENamn" ColumnName="ENamn" />
+          <ScalarProperty Name="Ålder" ColumnName="Ålder" />
+          <ScalarProperty Name="Kön" ColumnName="Kön" />
+          <ScalarProperty Name="Intressen" ColumnName="Intressen" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wall">
+      <EntityTypeMapping TypeName="ProjektDBModel.Wall">
+        <MappingFragment StoreEntitySet="Wall">
+          <ScalarProperty Name="WID" ColumnName="WID" />
+          <ScalarProperty Name="Inlägg" ColumnName="Inlägg" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VänFörfrågan">
+      <EntityTypeMapping TypeName="ProjektDBModel.VänFörfrågan">
+        <MappingFragment StoreEntitySet="VänFörfrågan">
+          <ScalarProperty Name="FUID" ColumnName="FUID" />
+          <ScalarProperty Name="SUID" ColumnName="SUID" />
+          <ScalarProperty Name="MUID" ColumnName="MUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,29 @@
+﻿body {
+}
+
+h1{
+    font-size : 48px;
+    color : cornflowerblue;
+    text-align : center;
+}
+
+#ProfilBild
+{
+    width : 100%;
+}
+
+#ProfilBildDiv
+{
+    width : 140px;
+    height : 140px;
+}
+
+#FriendRequest{
+    height : 20px;
+    width : 20px;
+}
+
+.LoggaText{
+    font-size : 20px;
+    color : blue;
+}

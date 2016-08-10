@@ -1,0 +1,57 @@
+﻿@model Projekt.Net.Models.Header
+@*I koden nedan kollar vi om användaren är inloggad.
+    Om så är fallet så visas Headern (partial viewn* högst upp.) och knapparna länkar
+    till profil, sökfunktionen etc etc samt visar om man har några friendrequests.*@
+<div class="row">
+    @if (Model.Inloggad)
+    {
+        <div class="col-md-2">
+            @using (Html.BeginForm("Index", "Start"))
+            {
+                <input type="submit" value="Hem" class="btn btn-default" />
+            }
+
+        </div>
+        <div class="col-md-5">
+            <span class="LoggaText">BortaMatch.com</span> <br /> Ta med egen tandborste!
+        </div>
+        <div class="col-md-2">
+            @using (Html.BeginForm("index", "search", FormMethod.Get))
+                {
+                <input type="submit" value="Sök Användare" class="btn btn-default" />
+            }
+        </div>
+        <div class="col-md-1">
+            @using (Html.BeginForm("Index", "MinProfil", new { id = Model.UserID }))
+            {
+                <input type="submit" value="Profil" class="btn btn-default" />
+            }
+        </div>
+        <div class="col-md-1">
+            @using (Html.BeginForm("LoggaUt", "Start"))
+                {
+                <input type="submit" value="Logga Ut" class="btn btn-default" />
+            }
+        </div>
+        <div class="col-md-1">
+            <div id="FriendRequest">
+                <a href='@Url.Action("Index", "FriendRequest", new { id = Model.UserID })'>
+                    <img src='@Url.Content("~/Content/requestimage.png")' />
+                </a>
+            </div>
+            @Model.FriendRequestList.Count
+        </div>
+    }
+    else
+    {
+        <div class="col-md-9"></div>
+        <div class="col-md-2">
+            @using (Html.BeginForm("LogIn", "Start"))
+                {
+                <input type="submit" value="Logga In" class="btn btn-default" />
+            }
+        </div>
+        <div class="col-md-1"></div>
+    }
+</div>
+

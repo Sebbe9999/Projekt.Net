@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BortaMatchDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Användare">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PW" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Friend" Relationship="Self.FK_Friend_FirstFriend" FromRole="Användare" ToRole="Friend" />
+    <NavigationProperty Name="Friend1" Relationship="Self.FK_Friend_SecondFriend" FromRole="Användare" ToRole="Friend" />
+    <NavigationProperty Name="FriendRequest" Relationship="Self.FK_FriendRequest_ToMottagarUser" FromRole="Användare" ToRole="FriendRequest" />
+    <NavigationProperty Name="FriendRequest1" Relationship="Self.FK_FriendRequest_ToSenderUser" FromRole="Användare" ToRole="FriendRequest" />
+    <NavigationProperty Name="ProfilInfo" Relationship="Self.FK_UID_UserID" FromRole="Användare" ToRole="ProfilInfo" />
+    <NavigationProperty Name="Wall" Relationship="Self.FK_Wall_ToUser" FromRole="Användare" ToRole="Wall" />
+    <Property Name="Sökbar" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Wall1" Relationship="BortaMatchDBModel.FK_Wall_SIDToUserID" FromRole="Användare" ToRole="Wall" />
+  </EntityType>
+  <EntityType Name="Friend">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstUID" Type="Int32" Nullable="false" />
+    <Property Name="SecondUID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.FK_Friend_FirstFriend" FromRole="Friend" ToRole="Användare" />
+    <NavigationProperty Name="Användare1" Relationship="Self.FK_Friend_SecondFriend" FromRole="Friend" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="FriendRequest">
+    <Key>
+      <PropertyRef Name="FUID" />
+    </Key>
+    <Property Name="FUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SUID" Type="Int32" Nullable="false" />
+    <Property Name="MUID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.FK_FriendRequest_ToMottagarUser" FromRole="FriendRequest" ToRole="Användare" />
+    <NavigationProperty Name="Användare1" Relationship="Self.FK_FriendRequest_ToSenderUser" FromRole="FriendRequest" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="ProfilInfo">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FNamn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ENamn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Ålder" Type="Int32" />
+    <Property Name="Kön" Type="Int32" />
+    <Property Name="Intresse" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="URL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.FK_UID_UserID" FromRole="ProfilInfo" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="Wall">
+    <Key>
+      <PropertyRef Name="WID" />
+    </Key>
+    <Property Name="WID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.FK_Wall_ToUser" FromRole="Wall" ToRole="Användare" />
+    <Property Name="SID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare1" Relationship="BortaMatchDBModel.FK_Wall_SIDToUserID" FromRole="Wall" ToRole="Användare" />
+  </EntityType>
+  <Association Name="FK_Friend_FirstFriend">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="FirstUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friend_SecondFriend">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="SecondUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_ToMottagarUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="MUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_ToSenderUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="SUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UID_UserID">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="ProfilInfo" Type="Self.ProfilInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ProfilInfo">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wall_ToUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Wall" Type="Self.Wall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Wall">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BortaMatchDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Användare" EntityType="Self.Användare" />
+    <EntitySet Name="Friend" EntityType="Self.Friend" />
+    <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" />
+    <EntitySet Name="ProfilInfo" EntityType="Self.ProfilInfo" />
+    <EntitySet Name="Wall" EntityType="Self.Wall" />
+    <AssociationSet Name="FK_Friend_FirstFriend" Association="Self.FK_Friend_FirstFriend">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friend_SecondFriend" Association="Self.FK_Friend_SecondFriend">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_ToMottagarUser" Association="Self.FK_FriendRequest_ToMottagarUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_ToSenderUser" Association="Self.FK_FriendRequest_ToSenderUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UID_UserID" Association="Self.FK_UID_UserID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="ProfilInfo" EntitySet="ProfilInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wall_ToUser" Association="Self.FK_Wall_ToUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Wall" EntitySet="Wall" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wall_SIDToUserID" Association="BortaMatchDBModel.FK_Wall_SIDToUserID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Wall" EntitySet="Wall" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Wall_SIDToUserID">
+    <End Type="BortaMatchDBModel.Användare" Role="Användare" Multiplicity="1" />
+    <End Type="BortaMatchDBModel.Wall" Role="Wall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Wall">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

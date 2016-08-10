@@ -1,0 +1,126 @@
+﻿@model Projekt.Net.Models.RedigeraProfil
+
+@{
+    ViewBag.Title = "visaRedigeraProfil";
+}
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/RedigeraProfil.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+@*Koden nedan styr hur fälten på vår "Redigera profil"-sida fungerar.*@
+@using (Html.BeginForm("sparaRedigeraProfil", "MinProfil", FormMethod.Post, new { data = Model }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Registrera</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (ViewBag.Message != null)
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    @ViewBag.Message
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Användaren.UName, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Användaren.UName })
+            <div class="col-md-10">
+                
+                @Html.EditorFor(model => model.Användaren.UName, new { htmlAttributes = new { @class = "form-control", maxlength = 20 } })
+                @Html.ValidationMessageFor(model => model.Användaren.UName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profilen.FNamn, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.FNamn })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.FNamn, new { htmlAttributes = new { @class = "form-control", maxlength = 20 } })
+                @Html.ValidationMessageFor(model => model.Profilen.FNamn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profilen.ENamn, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.ENamn })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.ENamn, new { htmlAttributes = new { @class = "form-control", maxlength = 20 } })
+                @Html.ValidationMessageFor(model => model.Profilen.ENamn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profilen.URL, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.URL })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.URL, new { htmlAttributes = new { @class = "form-control", maxlength = 150} })
+                @Html.ValidationMessageFor(model => model.Profilen.URL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profilen.Ålder, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.Ålder })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.Ålder, new { htmlAttributes = new { @class = "form-control", min = 18, max = 150 } })
+                @Html.ValidationMessageFor(model => model.Profilen.Ålder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Användaren.Email, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Användaren.Email })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Användaren.Email, new { htmlAttributes = new { @class = "form-control", maxlength = 300} })
+                @Html.ValidationMessageFor(model => model.Användaren.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profilen.Intresse, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.Intresse })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.Intresse, new { htmlAttributes = new { @class = "form-control", maxlength = 200 } })
+                @Html.ValidationMessageFor(model => model.Profilen.Intresse, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span>   0 = Kvinna, 1 = Man</span>
+            @Html.LabelFor(model => model.Profilen.Kön, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Profilen.Kön })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profilen.Kön, new { htmlAttributes = new { @class = "form-control", min = 0, max = 1 } })
+                @Html.ValidationMessageFor(model => model.Profilen.Kön, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span>   0 = Sökbar, 1 = Icke Sökbar</span>
+            @Html.LabelFor(model => model.Användaren.Sökbar, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Användaren.Sökbar })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Användaren.Sökbar, new { htmlAttributes = new { @class = "form-control", min = 0, max = 1} })
+                @Html.ValidationMessageFor(model => model.Användaren.Sökbar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Användaren.PW, htmlAttributes: new { @class = "control-label col-md-2", @Value = Model.Användaren.PW })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Användaren.PW, new { htmlAttributes = new { @class = "form-control", maxlength = 15} })
+                @Html.ValidationMessageFor(model => model.Användaren.PW, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(x => x.UserID, new { @Value = Model.HeaderModel.UserID })
+        @Html.HiddenFor(x => x.Profilen.PID, new { @Value = Model.Profilen.PID })
+        @Html.HiddenFor(x => x.Profilen.UID, new { @Value = Model.HeaderModel.UserID })
+        @Html.HiddenFor(x => x.Användaren.UserID, new { @Value = Model.HeaderModel.UserID })
+        @Html.HiddenFor(x => x.oldUname, new { @Value = Model.HeaderModel.Username })
+        @Html.HiddenFor(x => x.oldEmail, new { @Value = Model.Användaren.Email })
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spara" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

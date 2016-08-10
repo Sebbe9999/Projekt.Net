@@ -1,0 +1,122 @@
+﻿@model Projekt.Net.Models.Profil
+
+@section CSS{
+    <link href="~/Content/Wall.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/ProfilInfo.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+}
+
+@section JS{
+    <script src="~/Scripts/nyttInlägg.js"></script>
+    }
+
+@Html.Partial("Header", Model.HeaderModel)
+
+@*koden nedan styr hur informationen på andra användares profiler ser ut.*@
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="VisningsBild">
+                    <img src="@Model.URL" alt="..." class="img-rounded" id="ProfilBildProfilSida">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Namn">
+                    <span>Namn: </span>@Model.FNamn @Model.ENamn
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Kön">
+                    @if (Model.Kön == 1)
+                    {
+                        <span>Kön: Man</span>
+                    }
+                    else
+                    {
+                        <span>Kön: Kvinna</span>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Ålder">
+                    <span>Ålder: </span>
+                    @Model.Ålder
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Intressen">
+                    <span>Intressen: </span><br>
+                    @Model.Intressen
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model.isFriends)
+            {
+                <span id="friendsText">Ni är redan Vänner</span>
+            }
+            else if (Model.hasRequest)
+            {
+                <span id="friendsText">Vänförfrågan skickad</span>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    @using (Html.BeginForm("AddFriend", "Profil", FormMethod.Post, new { data = Model }))
+                {
+                        @Html.HiddenFor(x => x.MUID, new { @Value = this.Model.UserID })
+                        @Html.HiddenFor(x => x.SUID, new { @Value = this.Model.HeaderModel.UserID })
+                        <input type="submit" value="Skicka Vänförfrågan" class="btn btn-default" />
+                    }
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="col-md-6">
+
+        @foreach(var item in Model.InläggsLista)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <a href='@Url.Action("Index", "Profil", new { id = item.SID })'>
+                        <img src='@Url.Content(Model.Inläggsprofiler.Where(x => x.UID == item.SID).FirstOrDefault().URL)' id="wallListaProfilBild" />
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    @item.Post
+                </div>
+            </div>
+        }
+        @**Här skapar vi formen för att skicka en ny post.*@
+        <FORM NAME="myform" ACTION="" METHOD="Post" id="testForm">
+        Enter something in the box: <BR>
+        <input id="hidden_field" name="Sender" type="hidden" value="@Model.HeaderModel.UserID" />
+        <input id="hidden_field" name="Receiver" type="hidden" value="@Model.UserID"  />
+        <INPUT TYPE="text" NAME="Post" maxlength="149" VALUE="" required ><P>
+        <INPUT TYPE="button" NAME="button" Value="Posta" class="btn btn-primary" onClick="testResults"  id="test">
+    </div>
+    <div class="col-md-3"></div>
+</div>
+@*Koden nedan styr hur vi skickar ett inlägg på wallen.*@
+<script>
+
+    $(document).ready(function () {
+    $('#test').click(function () {
+        $.post('/api/bortamatch/nyttInlägg', $('#testForm').serialize(), function (data) {
+            location.reload();
+        },
+           'json' // I expect a JSON response
+        );
+    });
+});
+</script>

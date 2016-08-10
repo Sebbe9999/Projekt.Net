@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BortaMatchDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Användare">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="PW" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Sökbar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Friend">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstUID" Type="int" Nullable="false" />
+    <Property Name="SecondUID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FriendRequest">
+    <Key>
+      <PropertyRef Name="FUID" />
+    </Key>
+    <Property Name="FUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SUID" Type="int" Nullable="false" />
+    <Property Name="MUID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfilInfo">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FNamn" Type="nvarchar" MaxLength="20" />
+    <Property Name="ENamn" Type="nvarchar" MaxLength="20" />
+    <Property Name="Ålder" Type="int" />
+    <Property Name="Kön" Type="int" />
+    <Property Name="Intresse" Type="nvarchar" MaxLength="200" />
+    <Property Name="URL" Type="nvarchar" MaxLength="200" />
+    <Property Name="UID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Wall">
+    <Key>
+      <PropertyRef Name="WID" />
+    </Key>
+    <Property Name="WID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Post" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="UID" Type="int" Nullable="false" />
+    <Property Name="SID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Friend_FirstFriend">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="FirstUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friend_SecondFriend">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="SecondUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_ToMottagarUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="MUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_ToSenderUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="SUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UID_UserID">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="ProfilInfo" Type="Self.ProfilInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ProfilInfo">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wall_SIDToUserID">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Wall" Type="Self.Wall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Wall">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wall_ToUser">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Wall" Type="Self.Wall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Wall">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BortaMatchDBModelStoreContainer">
+    <EntitySet Name="Användare" EntityType="Self.Användare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfilInfo" EntityType="Self.ProfilInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wall" EntityType="Self.Wall" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Friend_FirstFriend" Association="Self.FK_Friend_FirstFriend">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friend_SecondFriend" Association="Self.FK_Friend_SecondFriend">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_ToMottagarUser" Association="Self.FK_FriendRequest_ToMottagarUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_ToSenderUser" Association="Self.FK_FriendRequest_ToSenderUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UID_UserID" Association="Self.FK_UID_UserID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="ProfilInfo" EntitySet="ProfilInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wall_SIDToUserID" Association="Self.FK_Wall_SIDToUserID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Wall" EntitySet="Wall" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wall_ToUser" Association="Self.FK_Wall_ToUser">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Wall" EntitySet="Wall" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

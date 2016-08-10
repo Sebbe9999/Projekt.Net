@@ -1,0 +1,17 @@
+﻿body {
+}
+
+.sökprofil{
+    border-radius : 10px;
+    background-color : dimgray;
+}
+
+#bild{
+    height : 50px;
+    width : 50px;
+}
+
+#SpanText{
+    color : black;
+    font-size : 20px;
+}

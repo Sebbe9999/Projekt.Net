@@ -1,0 +1,1 @@
+D:\C#\Test\Projekt.Net\BortaMatchAPI\obj\Debug\BortaMatchAPI.csprojResolveAssemblyReference.cache

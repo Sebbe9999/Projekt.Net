@@ -1,0 +1,71 @@
+﻿@model Projekt.Net.Models.Start
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/RandomBild.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="Logo">
+            <H1>BortaMatch.com</H1>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                @*Koden nedan kollar om personen är inloggad, och bestämmer därefter 
+                    vilka knappar som ska visas samt en loop där 3 användare slumpas fram.*@
+                @if (!Model.HeaderModel.Inloggad)
+                {
+                    
+                    using (Html.BeginForm("Register", "Start"))
+                    {
+                        <input type="submit" value="Registrera" class="btn btn-default" />
+                    }
+                    using (Html.BeginForm("LogIn", "Start"))
+                    {
+                        <input type="submit" value="Logga In" class="btn btn-default" />
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("Index", "MinProfil", new { id = Model.HeaderModel.UserID }))
+                    {
+                        <input type="submit" value="Min Profil" class="btn btn-default" />
+                    }
+                }
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    @foreach (var item in Model.BildLista)
+    {
+        <div class="col-md-2">
+            <div>
+                <a href='@Url.Action("Index", "Profil", new { id = item.UserID })'>
+                    <img src='@Url.Content(item.URL)' id="ProfilBildDiv" />
+                </a>
+            </div>
+        </div>
+    }
+    <div class="col-md-3"></div>
+</div>

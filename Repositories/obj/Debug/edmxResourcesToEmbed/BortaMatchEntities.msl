@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BortaMatchDBModelStoreContainer" CdmEntityContainer="BortaMatchDBEntities">
+    <EntitySetMapping Name="Användare">
+      <EntityTypeMapping TypeName="BortaMatchDBModel.Användare">
+        <MappingFragment StoreEntitySet="Användare">
+          <ScalarProperty Name="Sökbar" ColumnName="Sökbar" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PW" ColumnName="PW" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friend">
+      <EntityTypeMapping TypeName="BortaMatchDBModel.Friend">
+        <MappingFragment StoreEntitySet="Friend">
+          <ScalarProperty Name="FID" ColumnName="FID" />
+          <ScalarProperty Name="FirstUID" ColumnName="FirstUID" />
+          <ScalarProperty Name="SecondUID" ColumnName="SecondUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FriendRequest">
+      <EntityTypeMapping TypeName="BortaMatchDBModel.FriendRequest">
+        <MappingFragment StoreEntitySet="FriendRequest">
+          <ScalarProperty Name="FUID" ColumnName="FUID" />
+          <ScalarProperty Name="SUID" ColumnName="SUID" />
+          <ScalarProperty Name="MUID" ColumnName="MUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfilInfo">
+      <EntityTypeMapping TypeName="BortaMatchDBModel.ProfilInfo">
+        <MappingFragment StoreEntitySet="ProfilInfo">
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="FNamn" ColumnName="FNamn" />
+          <ScalarProperty Name="ENamn" ColumnName="ENamn" />
+          <ScalarProperty Name="Ålder" ColumnName="Ålder" />
+          <ScalarProperty Name="Kön" ColumnName="Kön" />
+          <ScalarProperty Name="Intresse" ColumnName="Intresse" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wall">
+      <EntityTypeMapping TypeName="BortaMatchDBModel.Wall">
+        <MappingFragment StoreEntitySet="Wall">
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="WID" ColumnName="WID" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

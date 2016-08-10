@@ -1,0 +1,43 @@
+﻿@model Projekt.Net.Models.FRequest
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/FriendRequestsCSS.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+@* Här loopar vi igenom en lista med friendrequests och kollar om SUID matchar UID i 
+    profillistan samt SUID matchar UserID i Användarlistan. Sen skickar HiddenFor med datan till nya modellen. *@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        @foreach (var item in Model.RequestLista)
+            {
+            <div class="AllFriendRequests">
+                <img src="@Model.ProfilLista.Where(x => x.UID == item.SUID).FirstOrDefault().URL" alt="..." class="img-rounded" id="bild">
+                <span class="AllFriendRequestText">
+                    @Model.AnvändareLista.Where(x => x.UserID == item.SUID).FirstOrDefault().UName
+                </span>
+                @using (Html.BeginForm("HanteraRequest", "FriendRequest", FormMethod.Post, new { data = Model }))
+                {
+                    @Html.HiddenFor(x => x.FriendID, new { @Value = item.SUID })
+                    @Html.HiddenFor(x => x.UserID, new { @Value = this.Model.HeaderModel.UserID })
+                    @Html.HiddenFor(x => x.bliVän, new { @Value = true })
+                    <input type="submit" value="Godkänn" class="btn btn-default" />
+                }
+                @using (Html.BeginForm("HanteraRequest", "FriendRequest", FormMethod.Post, new { data = Model }))
+                {
+                    @Html.HiddenFor(x => x.FriendID, new { @Value = item.SUID })
+                    @Html.HiddenFor(x => x.UserID, new { @Value = this.Model.HeaderModel.UserID })
+                    @Html.HiddenFor(x => x.bliVän, new { @Value = false })
+                    <input type="submit" value="Tacka Nej" class="btn btn-default" />
+                }
+            </div>
+        }
+    </div>
+    <div class="col-md-4"></div>
+</div>

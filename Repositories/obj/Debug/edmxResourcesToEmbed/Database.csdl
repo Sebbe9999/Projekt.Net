@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjektDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Användare">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PW" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProfilInfo" Relationship="Self.Användare_UID" FromRole="Användare" ToRole="ProfilInfo" />
+    <NavigationProperty Name="Friends" Relationship="Self.Friend1" FromRole="Användare" ToRole="Friends" />
+    <NavigationProperty Name="Friends1" Relationship="Self.Friend2" FromRole="Användare" ToRole="Friends" />
+    <NavigationProperty Name="VänFörfrågan" Relationship="Self.RequestReciever" FromRole="Användare" ToRole="VänFörfrågan" />
+    <NavigationProperty Name="VänFörfrågan1" Relationship="Self.RequestSender" FromRole="Användare" ToRole="VänFörfrågan" />
+    <NavigationProperty Name="Wall" Relationship="Self.WallUID" FromRole="Användare" ToRole="Wall" />
+  </EntityType>
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UID1" Type="Int32" Nullable="false" />
+    <Property Name="UID2" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.Friend1" FromRole="Friends" ToRole="Användare" />
+    <NavigationProperty Name="Användare1" Relationship="Self.Friend2" FromRole="Friends" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="ProfilInfo">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FNamn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ENamn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Ålder" Type="Int32" />
+    <Property Name="Kön" Type="Int32" />
+    <Property Name="Intressen" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="URL" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.Användare_UID" FromRole="ProfilInfo" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="Wall">
+    <Key>
+      <PropertyRef Name="WID" />
+    </Key>
+    <Property Name="WID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Inlägg" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.WallUID" FromRole="Wall" ToRole="Användare" />
+  </EntityType>
+  <EntityType Name="VänFörfrågan">
+    <Key>
+      <PropertyRef Name="FUID" />
+    </Key>
+    <Property Name="FUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SUID" Type="Int32" Nullable="false" />
+    <Property Name="MUID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Användare" Relationship="Self.RequestReciever" FromRole="VänFörfrågan" ToRole="Användare" />
+    <NavigationProperty Name="Användare1" Relationship="Self.RequestSender" FromRole="VänFörfrågan" ToRole="Användare" />
+  </EntityType>
+  <Association Name="Användare_UID">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="ProfilInfo" Type="Self.ProfilInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ProfilInfo">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Friend1">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Friend2">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="UID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RequestReciever">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="VänFörfrågan" Type="Self.VänFörfrågan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="VänFörfrågan">
+        <PropertyRef Name="MUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RequestSender">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="VänFörfrågan" Type="Self.VänFörfrågan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="VänFörfrågan">
+        <PropertyRef Name="SUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WallUID">
+    <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+    <End Role="Wall" Type="Self.Wall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Wall">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjektDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Användare" EntityType="Self.Användare" />
+    <EntitySet Name="Friends" EntityType="Self.Friends" />
+    <EntitySet Name="ProfilInfo" EntityType="Self.ProfilInfo" />
+    <EntitySet Name="Wall" EntityType="Self.Wall" />
+    <EntitySet Name="VänFörfrågan" EntityType="Self.VänFörfrågan" />
+    <AssociationSet Name="Användare_UID" Association="Self.Användare_UID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="ProfilInfo" EntitySet="ProfilInfo" />
+    </AssociationSet>
+    <AssociationSet Name="Friend1" Association="Self.Friend1">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="Friend2" Association="Self.Friend2">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+    <AssociationSet Name="RequestReciever" Association="Self.RequestReciever">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="VänFörfrågan" EntitySet="VänFörfrågan" />
+    </AssociationSet>
+    <AssociationSet Name="RequestSender" Association="Self.RequestSender">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="VänFörfrågan" EntitySet="VänFörfrågan" />
+    </AssociationSet>
+    <AssociationSet Name="WallUID" Association="Self.WallUID">
+      <End Role="Användare" EntitySet="Användare" />
+      <End Role="Wall" EntitySet="Wall" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

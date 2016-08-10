@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b5be89eb57c345bebfc315a4db3a25ba" Name="Diagram1">
+        <EntityTypeShape EntityType="BortaMatchDBModel.Användare" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BortaMatchDBModel.Friend" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BortaMatchDBModel.FriendRequest" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BortaMatchDBModel.ProfilInfo" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BortaMatchDBModel.Wall" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_Friend_FirstFriend" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_Friend_SecondFriend" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_FriendRequest_ToMottagarUser" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_FriendRequest_ToSenderUser" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_UID_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_Wall_ToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="BortaMatchDBModel.FK_Wall_SIDToUserID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

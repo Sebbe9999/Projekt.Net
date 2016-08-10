@@ -1,0 +1,75 @@
+﻿@model Projekt.Net.Models.MinProfil
+
+@section CSS{
+    <link href="~/Content/Main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/MinProfil.css" rel="stylesheet" type="text/css" />
+}
+
+@Html.Partial("Header", Model.HeaderModel)
+@*Här skriver vi ut informationen på profilen om användaren är inloggad.*@
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <img src="@Model.URL" alt="..." class="img-rounded" id="ProffeBild">
+            <br />
+            <span class="MinProfilInfo">@Model.FNamn @Model.ENamn</span> <br />
+            <span class="MinProfilInfo">
+                @Model.Ålder
+            </span>
+            <br />
+            @if (Model.Kön == 0)
+            {
+                <span class="MinProfilInfo">Kvinna</span>
+                <br />
+            }
+            else
+            {
+                <span class="MinProfilInfo">Man</span>
+                <br />
+            }
+            <span class="MinProfilInfo">@Model.Intresse</span>
+            @using (Html.BeginForm("visaRedigeraProfil", "MinProfil", new { id = Model.HeaderModel.UserID }))
+            {
+                <input type="submit" value="Redigera Profil" class="btn btn-default" />
+            }
+        </div>
+    </div>
+    @*Denna kod nedan styr hur inlägg på wallen visas.*@
+    <div class="col-md-5">
+        <div class="row">
+            @foreach (var item in Model.InläggsLista)
+            {
+                <div class="col-md-2">@Model.InläggsProfiler.Where(x => x.UID == item.SID).FirstOrDefault().FNamn</div>
+                <div class="col-md-6">@item.Post</div>
+                <div class="col-md-4">
+                    @using (Html.BeginForm("taBortInlägg", "MinProfil", FormMethod.Post, new { data = Model }))
+                {
+                        @Html.HiddenFor(x => x.WIDtoRemove, new { @Value = item.WID })
+                        @Html.HiddenFor(x => x.UserID, new { @Value = item.UID })
+
+                        <input type="submit" value="Ta Bort" class="btn btn-default" />
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    @*Koden nedan loopar fram slumpmässiga vänner från kontaktlistan som vi sedan kan visa på la page.*@
+    <div class="col-md-3">
+        <div class="row">
+            @foreach (var item in Model.RandomLista)
+            {
+                <div class="col-md-12">
+                    <a href='@Url.Action("Index", "Profil", new { id = item.UID })'>
+                        <img src='@Url.Content(item.URL)' id="FriendBild" />
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="row">
+            @using (Html.BeginForm("allaVänner", "MinProfil", new { id = Model.HeaderModel.UserID }))
+            {
+                <input type="submit" value="Lista alla Vänner" class="btn btn-default" />
+            }
+        </div>
+    </div>
+</div>

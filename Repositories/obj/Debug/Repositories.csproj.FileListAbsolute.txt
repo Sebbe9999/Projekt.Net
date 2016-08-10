@@ -1,0 +1,30 @@
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\Repositories.dll.config
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\Repositories.dll
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\Repositories.pdb
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\EntityFramework.dll
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.dll
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\EntityFramework.xml
+D:\C#\Projekt DK4\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.xml
+D:\C#\Projekt DK4\Projekt.Net\Repositories\obj\Debug\Repositories.csprojResolveAssemblyReference.cache
+D:\C#\Projekt DK4\Projekt.Net\Repositories\obj\Debug\Repositories.dll
+D:\C#\Projekt DK4\Projekt.Net\Repositories\obj\Debug\Repositories.pdb
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\Repositories.dll.config
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\Repositories.dll
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\Repositories.pdb
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\EntityFramework.dll
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.dll
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\EntityFramework.xml
+D:\C#\Test\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.xml
+D:\C#\Test\Projekt.Net\Repositories\obj\Debug\Repositories.csprojResolveAssemblyReference.cache
+D:\C#\Test\Projekt.Net\Repositories\obj\Debug\Repositories.dll
+D:\C#\Test\Projekt.Net\Repositories\obj\Debug\Repositories.pdb
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\Repositories.dll.config
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\Repositories.dll
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\Repositories.pdb
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\EntityFramework.dll
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\EntityFramework.xml
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\obj\Debug\Repositories.csprojResolveAssemblyReference.cache
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\obj\Debug\Repositories.dll
+C:\Users\Sebastian\Desktop\Projekt.Net\Repositories\obj\Debug\Repositories.pdb
