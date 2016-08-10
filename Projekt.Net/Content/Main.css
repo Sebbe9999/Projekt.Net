@@ -1,9 +1,11 @@
 ﻿body {
+        background-color:slategrey;
+
 }
 
 h1{
     font-size : 48px;
-    color : cornflowerblue;
+    color : white;
     text-align : center;
 }
 
